@@ -48,6 +48,30 @@ app.post('/test',(req:Request,res:Response)=>{
     res.send("got data")
 })
 
+// Checking error handeling middleware
+
+app.get('/error',(req:Request,res:Response,next: NextFunction)=>{
+try {
+ throw new Error("This is a test error!");
+} catch (error) {
+  next(error)
+}    
+
+})
+
+
+
+// Global error handeling
+
+app.use((error:any,req:Request,res:Response,next:NextFunction)=>{
+  console.log(error);
+    res.status(500).json({
+    success: false,
+    message: error.message || "Internal Server Error",
+  });
+})
+
+
 
 
 export default app
