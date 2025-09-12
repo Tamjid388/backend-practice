@@ -1,24 +1,27 @@
+
+```markdown
 # Project Structure
 
+```
+
 src/
- ├── app.ts              # Express app config (middleware, routes, etc.)
- ├── server.ts           # Server startup (app.listen)
- └── app/
-      └── modules/
-           └── student/  # Student module
-                ├── interface/     # TypeScript interfaces (data shapes, DTOs)
-                │    └── student.interface.ts
-                ├── model/         # Database models (e.g., Mongoose schema)
-                │    └── student.model.ts
-                ├── service/       # Business logic (create, update, delete, etc.)
-                │    └── student.service.ts
-                ├── controller/    # Request/Response handlers
-                │    └── student.controller.ts
-                ├── routes/        # Express route definitions
-                │    └── student.routes.ts
+├── app.ts              # Express app config (middleware, routes, etc.)
+├── server.ts           # Server startup (app.listen)
+└── app/
+└── modules/
+└── student/  # Student module
+├── interface/     # TypeScript interfaces (data shapes, DTOs)
+│    └── student.interface.ts
+├── model/         # Database models (e.g., Mongoose schema)
+│    └── student.model.ts
+├── service/       # Business logic (create, update, delete, etc.)
+│    └── student.service.ts
+├── controller/    # Request/Response handlers
+│    └── student.controller.ts
+├── routes/        # Express route definitions
+│    └── student.routes.ts
 
-
-
+```
 
 ---
 
@@ -30,5 +33,7 @@ src/
 4. **Service** → The service (`student.service.ts`) contains the business logic and interacts with the model.  
 5. **Model** → The model (`student.model.ts`) communicates with the database (e.g., MongoDB via Mongoose).  
 6. **Response** → The result is returned back through the controller to the client as a JSON response.  
+```
 
 ---
+
