@@ -1,12 +1,13 @@
-import { Schema, model, connect } from 'mongoose'
+import { string } from 'joi'
+import { Schema, model, connect, Model } from 'mongoose'
 
-export type Username={
+export type TUsername={
     firstname: string
-    middlename: string
+    middlename?: string
     lastname: string
 }
 
-export type Parents= {
+export type TParents= {
     father: {
       name: string
       occupation: string
@@ -18,17 +19,17 @@ export type Parents= {
       contact: string
     }
   }
-export type Student = {
+export type TStudent = {
   id:string
-  name: Username
+  name: TUsername
   gender: 'male' | 'female'
   email: string
   dob: string
   contactnumber: string
   emergency: string
   bloodgroup: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-'
-  presentadderess: string
-  permanentaddress: string
-  parents: Parents
+ 
+  parents: TParents
 }
+
 

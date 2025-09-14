@@ -1,28 +1,54 @@
-import { Schema,model } from 'mongoose'
-import { Parents, Student, Username } from '../interfaces/student.interface'
-
+import { Schema, model } from 'mongoose'
+import { TParents, TStudent, TUsername } from '../interfaces/student.interface'
+import validator from 'validator'
 // UserNameSchema
-const userNameSchema = new Schema<Username>({
-  firstname: { type: String, required: true },
-  middlename: { type: String },
-  lastname: { type: String, required: true },
+const userNameSchema = new Schema<TUsername>({
+  firstname: {
+    type: String,
+    required: [true, 'First Name is required'],
+    trim: true,
+    validate: {
+      //Custom Validator Function
+      validator: function (value) {
+        const nameStr = value.charAt(0).toUpperCase() + value.slice(1)
+        return nameStr == value
+      },
+      message: `{VALUE} is not in capitalize format`,
+    },
+  },
+
+  middlename: { type: String, trim: true,required:false },
+  lastname:
+   {
+     type: String,
+      required: true,
+      validate:{
+        validator:(value:string)=>{
+        return validator.isAlphanumeric(value)
+        
+        }, 
+         message: (props: any) => `${props.value} is not a valid lastname!`
+        
+      }
+    
+    },
 })
 // GuardianSchema
-const guardianSchema = new Schema<Parents>({
+const guardianSchema = new Schema<TParents>({
   father: {
-    name: { type: String, required: true },
+    name: { type: String, required: true, trim: true },
     occupation: { type: String, required: true },
     contact: { type: String, required: true },
   },
   mother: {
-    name: { type: String, required: true },
+    name: { type: String, required: true, trim: true },
     occupation: { type: String, required: true },
     contact: { type: String, required: true },
   },
 })
 // StudentSchema
-const studentSchema = new Schema<Student>({
-  id: { type: String },
+const studentSchema = new Schema<TStudent>({
+  id: { type: String ,required:true},
   name: userNameSchema,
 
   gender: {
@@ -50,4 +76,16 @@ const studentSchema = new Schema<Student>({
   parents: guardianSchema,
 })
 
-export const StudentModel=model<Student>("Student",studentSchema);
+
+//Pre Save Middleware 
+
+studentSchema.pre('save',function(){
+  console.log(this,"Pree hook middleware");
+})
+//Post Save Middleware 
+studentSchema.post('save',function(){
+  console.log(this,"post hook middleware");
+})
+
+
+export const Student = model<TStudent>('Student', studentSchema)
