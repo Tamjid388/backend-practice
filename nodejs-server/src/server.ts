@@ -18,6 +18,26 @@ if(req.url==="/" && req.method==="GET"){
     }))
 
 }
+// users route
+if(req.url==="/api/users" && req.method==="POST"){
+
+const user={
+    id:"02",
+    name:"John",
+
+}
+
+   res.writeHead(200,{
+        "content-type":"application/json"
+    })
+    res.end(JSON.stringify(user))
+
+}
+
+
+
+
+
 })
 
 server.listen(config.port,()=>{
