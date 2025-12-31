@@ -16,6 +16,7 @@ datasource db {
 model User{
   id Int @id @default(autoincrement())
   email String @unique
+  name String
   posts Post[]
   role Role @default(user)
   profile Profile?
